@@ -12,6 +12,7 @@ public class ApexTest {
         WebDriverManager wdm;
         wdm = WebDriverManager.chromedriver().browserVersion("122");
         wdm.setup();
+        System.out.println("Ending Before Class");
     }
 
     @BeforeMethod
@@ -19,15 +20,19 @@ public class ApexTest {
         ChromeOptions options = new ChromeOptions();
         options.addArguments("--headless=new");
         driver = new ChromeDriver(options);
+        System.out.println("Ending driver set up");
+
     }
 
     @AfterMethod
     public void quitDriver(){
         driver.quit();
+        System.out.println("quit Driver");
     }
 
     @Test
     public void test1(){
+        System.out.println("Into the testcase");
 
     }
 }
