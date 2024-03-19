@@ -13,7 +13,7 @@ jobs:
         uses: actions/setup-java@v3
         with:
           java-version: '11'
-          distribuitor: 'temurin'
+          distribution: 'temurin'
           cache: maven
       - name: Run Unit Tests
         run: mvn test
