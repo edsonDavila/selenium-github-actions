@@ -5,8 +5,11 @@ import org.openqa.selenium.chrome.ChromeOptions;
 import org.testng.Assert;
 import org.testng.annotations.*;
 
+import java.time.Duration;
+
 public class ApexTest {
     WebDriver driver;
+    private GooglePage googlePage;
     @BeforeClass
     public void setUp(){
         WebDriverManager wdm;
@@ -21,7 +24,7 @@ public class ApexTest {
         options.addArguments("--headless=new");
         driver = new ChromeDriver(options);
         System.out.println("Ending driver set up");
-
+        googlePage = new GooglePage(driver);
     }
 
     @AfterMethod
@@ -31,8 +34,11 @@ public class ApexTest {
     }
 
     @Test
-    public void test1(){
+    public void test1() throws InterruptedException {
+        driver.navigate().to("https://google.com");
+        googlePage.typeSearchBar("Apex systems");
         System.out.println("Into the testcase");
+
 
     }
 }
