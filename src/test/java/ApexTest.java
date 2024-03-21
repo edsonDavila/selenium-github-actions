@@ -35,9 +35,13 @@ public class ApexTest {
 
     @Test
     public void test1() throws InterruptedException {
+        String textToSeach = "Apex Systems";
         driver.navigate().to("https://google.com");
-        googlePage.typeSearchBar("Apex systems");
-        System.out.println("Into the testcase");
+        googlePage.typeSearchBar(textToSeach);
+        String actualText = googlePage.getLinkText();
+        System.out.println("Actual Text: "+  actualText);
+
+        Assert.assertEquals(actualText,textToSeach);
 
 
     }
