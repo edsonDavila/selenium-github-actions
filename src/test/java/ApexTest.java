@@ -19,10 +19,10 @@ public class ApexTest {
 
     @BeforeMethod(alwaysRun = true)
     public void setUpDriver(){
-        /*ChromeOptions options = new ChromeOptions();
+        ChromeOptions options = new ChromeOptions();
         options.addArguments("--headless=new");
-        driver = new ChromeDriver(options);*/
-        driver = new ChromeDriver();
+        driver = new ChromeDriver(options);
+        //driver = new ChromeDriver();
 
         System.out.println("Ending driver set up");
         googlePage = new GooglePage(driver);
