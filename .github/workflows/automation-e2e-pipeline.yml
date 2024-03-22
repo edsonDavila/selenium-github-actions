@@ -29,5 +29,5 @@ jobs:
           java-version: '11'
           distribution: 'temurin'
           cache: maven
-      - name: Runs Google Page Test Cases
+      - name: Runs Apex Page Test Cases
         run: mvn test -Dgroups=apex
