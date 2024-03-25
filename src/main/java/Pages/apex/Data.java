@@ -1,4 +1,4 @@
-package apex;
+package Pages.apex;
 
 public class Data {
     public static final String url = "https://www.apexsystems.com/";

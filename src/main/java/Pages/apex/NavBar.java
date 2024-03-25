@@ -1,4 +1,6 @@
-package apex;
+package Pages.apex;
+import Pages.PageManageActions;
+import com.aventstack.extentreports.ExtentTest;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
@@ -9,10 +11,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
 
-public class NavBar {
-    private WebDriverWait wdw;
-
-    Actions actions;
+public class NavBar extends PageManageActions {
 
     @FindBy(xpath = "(//a[text() = 'What We Do'])[1]")
     private WebElement whatWeDoExpandButton;
@@ -26,29 +25,24 @@ public class NavBar {
 
 
 
-    public NavBar(WebDriver driver){
+    public NavBar(WebDriver driver, ExtentTest test){
+        super(driver,test);
         PageFactory.initElements(driver,this);
-        this.wdw = new WebDriverWait(driver, Duration.ofSeconds(30));
-        actions = new Actions(driver);
     }
 
     public void hoverOnWhatWeDoExpandButton(){
-        this.wdw.until(ExpectedConditions.elementToBeClickable(whatWeDoExpandButton));
-        actions.moveToElement(whatWeDoExpandButton).perform();
+        hoverElement(whatWeDoExpandButton, "What We Do");
     }
 
     public void clickOnQualityAssuranceAndTestingLink(){
-        this.wdw.until(ExpectedConditions.elementToBeClickable(qualityAssuranceAndTestingLink));
-        qualityAssuranceAndTestingLink.click();
+        waitUntilElementIsClickableAndClick(qualityAssuranceAndTestingLink,"Quality");
     }
 
     public void clickOnCareersExpandButton(){
-        this.wdw.until(ExpectedConditions.elementToBeClickable(careersExpandButton));
-        careersExpandButton.click();
+        waitUntilElementIsClickableAndClick(careersExpandButton,"Careers");
     }
 
     public void clickOnSearchJobsLink(){
-        this.wdw.until(ExpectedConditions.elementToBeClickable(searchJobsLink));
-        searchJobsLink.click();
+        waitUntilElementIsClickableAndClick(searchJobsLink,"Search Jobs");
     }
 }

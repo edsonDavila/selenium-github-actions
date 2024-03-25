@@ -1,5 +1,7 @@
-package apex;
+package Pages.apex;
 
+import Pages.PageManageActions;
+import com.aventstack.extentreports.ExtentTest;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -10,7 +12,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
 
-public class ApexPage {
+public class ApexPage extends PageManageActions {
     @FindBy(xpath = "//button[@data-target = '#navbarSupportedContent']")
     private WebElement navBarButton;
     @FindBy(xpath = "(//a[text() = 'Search'])[1]")
@@ -19,20 +21,17 @@ public class ApexPage {
     private WebElement searchInput;
     @FindBy(id = "onetrust-accept-btn-handler")
     private WebElement cookiesAlert;
-    private WebDriverWait wdw;
 
-    public ApexPage(WebDriver driver){
+    public ApexPage(WebDriver driver, ExtentTest test){
+        super(driver,test);
         PageFactory.initElements(driver,this);
-        this.wdw = new WebDriverWait(driver, Duration.ofSeconds(30));
     }
 
     public void clickOnNavBarMenuButton(){
-        this.wdw.until(ExpectedConditions.elementToBeClickable(navBarButton));
-        navBarButton.click();
+        waitUntilElementIsClickableAndClick(navBarButton,"NavBar button");
     }
 
     public void clickOnAcceptCookiesButton(){
-        this.wdw.until(ExpectedConditions.elementToBeClickable(cookiesAlert));
-        cookiesAlert.click();
+        waitUntilElementIsClickableAndClick(cookiesAlert,"Accept Cookies");
     }
 }

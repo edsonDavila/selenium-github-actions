@@ -1,4 +1,4 @@
-import apex.*;
+import Pages.GooglePage;
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -9,7 +9,7 @@ import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
-public class GoogleTest {
+public class GoogleTest extends ExtentSetup{
     WebDriver driver;
     private GooglePage googlePage;
     @BeforeClass(alwaysRun = true)
@@ -28,17 +28,12 @@ public class GoogleTest {
         //driver = new ChromeDriver();
 
         System.out.println("Ending driver set up");
-        googlePage = new GooglePage(driver);
-    }
-
-    @AfterMethod(alwaysRun = true)
-    public void quitDriver(){
-        driver.quit();
-        System.out.println("quit Driver");
     }
 
     @Test(groups = "google")
     public void test1() {
+        test = extentReports.createTest("Google Search Test");
+        googlePage = new GooglePage(driver,test);
         String textToSearch = "Apex Systems";
         driver.navigate().to("https://google.com");
         googlePage.typeSearchBar(textToSearch);
@@ -46,6 +41,7 @@ public class GoogleTest {
         System.out.println("Actual Text: "+  actualText);
 
         Assert.assertEquals(actualText,textToSearch);
+        test.pass("Expected Link Message: "+ textToSearch + " Actual Link Message: "+actualText);
 
 
     }

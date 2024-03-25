@@ -1,5 +1,7 @@
-package apex;
+package Pages.apex;
 
+import Pages.PageManageActions;
+import com.aventstack.extentreports.ExtentTest;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
@@ -12,8 +14,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
 
-public class ContactUsPage {
-    private WebDriverWait wdw;
+public class ContactUsPage extends PageManageActions {
 
     @FindBy(xpath = "//h1[text() = \"Let's Connect\"]")
     private WebElement letsConnectTitle;
@@ -36,63 +37,46 @@ public class ContactUsPage {
     @FindBy(id = "edit-message")
     private WebElement messageTextArea;
 
-    public ContactUsPage(WebDriver driver){
+
+    public ContactUsPage(WebDriver driver, ExtentTest test){
+        super(driver,test);
         PageFactory.initElements(driver,this);
-        this.wdw = new WebDriverWait(driver, Duration.ofSeconds(30));
     }
 
     public void typeFullName(String fullName) {
-
-        this.wdw.until(ExpectedConditions.visibilityOf(fullNameInput));
-        fullNameInput.sendKeys(fullName);
+        typeIntoElement(fullNameInput,"Full Name", fullName);
     }
 
     public void selectContactReasonByText(String reasonText) {
-        this.wdw.until(ExpectedConditions.visibilityOf(contactReasonSelect));
-
-        Select select = new Select(contactReasonSelect);
-        select.selectByVisibleText(reasonText);
+        selectOptionByText(contactReasonSelect, "Contact Reason", reasonText);
     }
 
     public void selectContactReasonByValue(String reasonValue) {
-        this.wdw.until(ExpectedConditions.elementToBeClickable(contactReasonSelect));
-
-        Select select = new Select(contactReasonSelect);
-        select.selectByValue(reasonValue);
+        selectOptionByValue(contactReasonSelect, "Contact Reason", reasonValue);
     }
 
     public void typeEmail(String email) {
-
-        this.wdw.until(ExpectedConditions.elementToBeClickable(emailInput));
-        emailInput.sendKeys(email);
+        typeIntoElement(emailInput,"Email", email);
     }
 
     public void selectLocationByText(String locationText) {
-        this.wdw.until(ExpectedConditions.elementToBeClickable(locationAreaSelect));
-
-        Select select = new Select(locationAreaSelect);
-        select.selectByVisibleText(locationText);
+        selectOptionByText(locationAreaSelect, "Location Area", locationText);
     }
 
     public void selectLocationByValue(String locationValue) {
-        this.wdw.until(ExpectedConditions.elementToBeClickable(locationAreaSelect));
-        Select select = new Select(locationAreaSelect);
-        select.selectByValue(locationValue);
+        selectOptionByValue(locationAreaSelect, "Location Area", locationValue);
     }
 
     public void typeSubject(String subject) {
-        this.wdw.until(ExpectedConditions.visibilityOf(subjectInput));
-        subjectInput.sendKeys(subject);
+        typeIntoElement(subjectInput, "Subject", subject);
     }
 
     public void typeMessage(String message) {
-        this.wdw.until(ExpectedConditions.visibilityOf(messageTextArea));
-        messageTextArea.sendKeys(message);
+        typeIntoElement(messageTextArea, "Message", message);
     }
 
     public String getPageName() {
-        this.wdw.until(ExpectedConditions.visibilityOf(letsConnectTitle));
-        return letsConnectTitle.getText();
+        return getElementText(letsConnectTitle,"let's connect");
     }
 
 

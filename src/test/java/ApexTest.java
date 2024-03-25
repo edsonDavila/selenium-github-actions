@@ -1,14 +1,12 @@
-import apex.*;
+import Pages.GooglePage;
+import Pages.apex.*;
 import io.github.bonigarcia.wdm.WebDriverManager;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.testng.Assert;
 import org.testng.annotations.*;
 
-public class ApexTest {
-    WebDriver driver;
-    private GooglePage googlePage;
+public class ApexTest extends ExtentSetup{
     @BeforeClass(alwaysRun = true)
     public void setUp(){
         WebDriverManager wdm;
@@ -25,31 +23,25 @@ public class ApexTest {
         //driver = new ChromeDriver();
 
         System.out.println("Ending driver set up");
-        googlePage = new GooglePage(driver);
-    }
-
-    @AfterMethod(alwaysRun = true)
-    public void quitDriver(){
-        driver.quit();
-        System.out.println("quit Driver");
     }
 
     @Test(groups = "apex")
     public void apexTest1() {
+        test = extentReports.createTest("Apex Contact Us");
         driver.manage().window().maximize();
         driver.navigate().to(Data.url);
-        ApexPage apexPage = new ApexPage(driver);
+        ApexPage apexPage = new ApexPage(driver,test);
         apexPage.clickOnAcceptCookiesButton();
 
-        NavBar navBar = new NavBar(driver);
+        NavBar navBar = new NavBar(driver,test);
         navBar.hoverOnWhatWeDoExpandButton();
         navBar.clickOnQualityAssuranceAndTestingLink();
 
-        QualityAssuranceAndTestingPage qualityAssuranceAndTestingPage = new QualityAssuranceAndTestingPage(driver);
+        QualityAssuranceAndTestingPage qualityAssuranceAndTestingPage = new QualityAssuranceAndTestingPage(driver,test);
         qualityAssuranceAndTestingPage.scrollToConnectWithUsLink();
         qualityAssuranceAndTestingPage.clickOnConnectWithUsLink();
 
-        ContactUsPage contactUsPage = new ContactUsPage(driver);
+        ContactUsPage contactUsPage = new ContactUsPage(driver,test);
         Assert.assertEquals(contactUsPage.getPageName(),"Let's Connect");
         contactUsPage.typeFullName(Data.fullname);
         contactUsPage.selectContactReasonByText(Data.contactReason);
