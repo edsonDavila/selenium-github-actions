@@ -39,9 +39,9 @@ jobs:
       - name: Runs Apex Page Test Cases
         run: mvn test -Dgroups=apex
       - name: Upload Report
-          uses: actions/upload-artifact@v4.3.1
-          with:
-            name: apexReport
-            path: test-output/**
-            if-no-files-found: error
-            retention-days: 90
+        uses:  actions/upload-artifact@v4.3.1
+        with:
+          name: apexReport
+          path: test-output/**
+          if-no-files-found: error
+          retention-days: 90
