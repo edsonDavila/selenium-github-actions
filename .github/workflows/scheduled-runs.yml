@@ -1,10 +1,8 @@
-
-name: e2e pipeline
+name: Scheduled pipeline
 
 on:
-  schedule:
-  - cron: "0 5,17 * * 1-5"
-    
+  workflow_dispatch:
+
 jobs:
   Google_Execution:
     runs-on: ubuntu-latest
@@ -19,6 +17,13 @@ jobs:
           cache: maven
       - name: Runs Google Page Test Cases
         run: mvn test -Dgroups=google
+      - name: Upload Report
+        uses: actions/upload-artifact@v4.3.1
+        with:
+          name: googleReport
+          path: test-output/**
+          if-no-files-found: error
+          retention-days: 90
 
   Apex_Execution:
     runs-on: ubuntu-latest
@@ -33,3 +38,10 @@ jobs:
           cache: maven
       - name: Runs Apex Page Test Cases
         run: mvn test -Dgroups=apex
+      - name: Upload Report
+        uses:  actions/upload-artifact@v4.3.1
+        with:
+          name: apexReport
+          path: test-output/**
+          if-no-files-found: error
+          retention-days: 90
